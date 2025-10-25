@@ -1,0 +1,162 @@
+/* src/styles/auth.css
+   Themeable by CSS variables. Replace values in :root to match your Canva design.
+*/
+
+:root{
+  /* Replace these with your exact theme colors from Canva */
+  --brand: #6750A4;      /* primary brand color (buttons, focus) */
+  --accent: #8E7DEF;     /* accent / left panel color */
+  --bg: #f6f7fb;         /* page background */
+  --card: #ffffff;       /* card background */
+  --muted: #6b7280;      /* secondary text */
+  --danger: #ef4444;     /* error */
+  --radius: 12px;
+  --shadow: 0 8px 30px rgba(22, 24, 35, 0.08);
+  --glass: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+}
+
+/* Page layout */
+.auth-page{
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  background: var(--bg);
+  align-items: center;
+  justify-items: center;
+  padding: 40px;
+  gap: 24px;
+}
+
+/* Left brand panel */
+.auth-side{
+  width: 100%;
+  max-width: 420px;
+  height: 560px;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--accent), rgba(138, 123, 255, 0.85));
+  color: white;
+  padding: 36px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.auth-brand{
+  display:flex;
+  gap:16px;
+  align-items:center;
+}
+.auth-brand svg { flex-shrink:0; border-radius:8px; }
+.auth-brand h2{ margin:0; font-size:22px; letter-spacing:0.2px; }
+.auth-tag{ margin:0; opacity:0.95; font-size:13px; color:rgba(255,255,255,0.95) }
+
+.auth-hero h3{ margin:0 0 8px 0; font-size:20px; }
+.auth-hero p{ margin:0; opacity:0.95; line-height:1.4; }
+
+/* Right form card */
+.auth-card{
+  width: 100%;
+  max-width: 520px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-title{
+  margin: 0 0 8px 0;
+  font-size:22px;
+  color: #111827;
+}
+
+.auth-form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.auth-label{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  font-size:13px;
+  color:#111827;
+}
+
+.auth-input{
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid #e6e9ef;
+  background: #fff;
+  outline:none;
+  font-size:14px;
+  transition: box-shadow .12s, border-color .12s;
+}
+
+.auth-input:focus{
+  box-shadow: 0 4px 18px rgba(99,102,241,0.12);
+  border-color: var(--brand);
+}
+
+.auth-error{
+  color: var(--danger);
+  background: rgba(239,68,68,0.06);
+  padding:10px 12px;
+  border-radius:8px;
+  font-size:13px;
+}
+
+/* button */
+.auth-button{
+  margin-top:6px;
+  padding:12px 14px;
+  border-radius:10px;
+  border: none;
+  background: linear-gradient(90deg, var(--brand), var(--accent));
+  color: white;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+  transition: transform .08s ease, box-shadow .08s ease;
+  box-shadow: 0 6px 18px rgba(103,80,164,0.12);
+}
+
+.auth-button:active{ transform: translateY(1px); }
+.auth-button[disabled]{ opacity:0.7; cursor:default; transform:none; }
+
+/* footer links */
+.auth-footer{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:10px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.auth-link{
+  color: var(--brand);
+  text-decoration: none;
+  font-weight:600;
+}
+
+/* responsive */
+@media (max-width: 960px){
+  .auth-page{
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .auth-side{
+    order: -1;
+    height: auto;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .auth-card{
+    padding: 20px;
+  }
+}

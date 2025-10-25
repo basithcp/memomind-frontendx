@@ -1,0 +1,70 @@
+/* Center the first row card */
+.firstRow {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+/* Limit width of the first (upload) card so it doesn't expand the layout */
+.firstCard {
+  width: min(520px, 100%); /* tweak this value to change the upload card width */
+}
+
+/* Three-card responsive grid for the second row */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  align-items: stretch;
+  margin-bottom: 1.5rem;
+}
+
+/* Make link wrapper fill grid cell */
+.cardLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Generic card style used for all cards */
+.cardCustom {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 160px;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+/* subtle hover */
+.cardCustom:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* upload area dashed visual */
+.uploadArea {
+  border: 2px dashed #e9ecef;
+}
+
+/* center icons inside cards */
+.cardCustom .mb-3 {
+  display: flex;
+  justify-content: center;
+}
+
+/* small screens: stack and tighten heights */
+@media (max-width: 420px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .cardCustom {
+    min-height: 140px;
+  }
+}

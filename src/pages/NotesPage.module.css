@@ -1,0 +1,116 @@
+/* NewNotesPage.module.css - unique prefixed classnames to avoid collisions */
+
+.newNotesContainer {
+  padding: 28px 32px;
+}
+
+.newNotesTitle {
+  font-size: 40px;
+  margin: 4px 0 20px 0;
+  color: #1f2937;
+}
+
+/* horizontal scrolling list (one card per row horizontally) */
+.newNotesList {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 70vw;
+  flex-wrap: wrap;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* empty state */
+.newNotesEmpty {
+  color: #6b7280;
+  padding: 24px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+/* card */
+.newNotesCard {
+  min-width: 300px;
+  max-width: 320px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.04);
+}
+
+.newNotesCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.newNotesItemName {
+  font-size: 16px;
+  margin: 0;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+.newNotesDeleteBtn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.newNotesDeleteBtn:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.newNotesCardBody {
+  font-size: 14px;
+  color: #374151;
+}
+
+.newNotesMetaRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.newNotesMetaLabel {
+  color: #6b7280;
+}
+
+.newNotesMetaValue {
+  color: #111827;
+}
+
+.newNotesCardFooter {
+  margin-top: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.newNotesPrimaryBtn {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: linear-gradient(180deg,#7c3aed,#6d28d9);
+  color: white;
+}
+
+/* small responsive tweak */
+@media (max-width: 640px) {
+  .newNotesCard {
+    min-width: 260px;
+  }
+}
