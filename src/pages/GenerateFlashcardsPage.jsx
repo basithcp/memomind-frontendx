@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { contentAPI } from '../api/content';
 import ChatPromptBar from '../components/ChatPromptBar';
@@ -200,32 +200,53 @@ const GenerateFlashcardsPage = () => {
       if (!userId) throw new Error('User not authenticated. Please login again.')
       if (!itemId) throw new Error('No item id available to save.')
 
-      // Use the saved document (generated flashcards structure) for the revision call
+      // Use persisted savedDocument or fall back to the current flashcards
       const documentToSave = savedDocument || {
         flashcards: flashcards,
-        totalCards: flashcards.length,
+        totalCards: (flashcards && flashcards.length) || 0,
         subject: 'Generated Flashcards',
         type: 'flashcards'
       }
-      
+
+      // Normalize entries to { question, answer } (backend-friendly)
+      const normalized = (documentToSave.flashcards || []).map((c, i) => {
+        const question = c.question ?? c.q ?? c.front ?? c.prompt ?? ''
+        const answer = c.answer ?? c.a ?? c.back ?? c.solution ?? ''
+        return { question, answer, index: i }
+      })
+
       const payload = {
-        title: documentToSave.title || 'Generated Flashcards',
-        flashcards: documentToSave.flashcards || flashcards,
-        totalCards: documentToSave.totalCards || flashcards.length,
+        // backend expects `questions` array (same as MCQ flow)
+        questions: normalized,
+        // keep `flashcards` for compatibility if you want
+        flashcards: normalized,
+        title: documentToSave.title || `Generated Flashcards - ${itemName || itemId}`,
+        totalCards: documentToSave.totalCards || normalized.length,
         subject: documentToSave.subject || 'Generated Flashcards',
         type: 'flashcards',
         date: new Date().toISOString(),
       }
-      
-      console.log("Saving flashcards document:", payload);
-      
-      await contentAPI.saveFlashcard(userId, itemId, itemName, payload);
-      alert('Flashcards saved for revision! You can now access them from the revision menu.');
+
+      console.log('[Flashcards] Saving payload:', payload)
+
+      const resp = await contentAPI.saveFlashcard(userId, itemId, itemName, payload)
+      console.log('[Flashcards] saveFlashcard response:', resp)
+
+      alert('Flashcards saved for revision! You can now access them from the revision menu.')
     } catch (error) {
-      console.error('Error saving flashcards:', error);
-      alert('Failed to save flashcards. Please try again.');
+      console.error('[Flashcards] Error saving flashcards:', error)
+      if (error?.response) {
+        console.error('status:', error.response.status)
+        console.error('response data:', error.response.data)
+        alert(`Failed to save flashcards. Server error (${error.response.status}): ${JSON.stringify(error.response.data)}`)
+      } else if (error?.request) {
+        alert('Failed to save flashcards. No response from server (network issue).')
+      } else {
+        alert(`Failed to save flashcards: ${error.message || error}`)
+      }
     }
   }
+
 
   if (error) {
     return (
